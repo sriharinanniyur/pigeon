@@ -10,7 +10,7 @@
 (defparameter *min-positive-score* .6)
 
 (defparameter *max-chars* (* 10 1024))
-(defparameter *corpus* (make-array 1000 :adjustable t :fill-pointer 0))
+;(defparameter *corpus* (make-array 1000 :adjustable t :fill-pointer 0))
 
 (defun classify (text)
   "Classify the text of a message as positive, negative, or UNSURE."
@@ -74,10 +74,6 @@
    *total-negatives* 0))
 
 (defun positive-probability (feature)
-  "Basic probability that a feature with the given relative
-frequencies will appear in a positive assuming positives and negatives are
-otherwise equally probable. One of the two frequencies must be
-non-zero."
   (with-slots (positive-count negative-count) feature
     (let ((positive-frequency (/ positive-count (max 1 *total-positives*)))
           (negative-frequency (/ negative-count (max 1 *total-negatives*))))
@@ -87,9 +83,6 @@ non-zero."
 (defun bayesian-positive-probability (feature &optional
                                   (assumed-probability 1/2)
                                   (weight 1))
-  "Bayesian adjustment of a given probability given the number of
-data points that went into it, an assumed probability, and a
-weight we give that assumed probability."
   (let ((basic-probability (positive-probability feature))
         (data-points (+ (positive-count feature) (negative-count feature))))
     (/ (+ (* weight assumed-probability)
@@ -129,8 +122,8 @@ weight we give that assumed probability."
 (defun classification (score)
   (values
    (cond
-     ((<= score *max-negative-score*) 'negative)
-     ((>= score *min-positive-score*) 'positive)
+     ((<= score *max-negative-score*) 'not-action-item)
+     ((>= score *min-positive-score*) 'action-item)
      (t 'unsure))
    score))
 
@@ -142,3 +135,7 @@ weight we give that assumed probability."
   (loop for line = (read-line negative-stream nil)
         while line do
         (train line 'negative)))
+(format t "WELCOME TO ACTIONABLE. ENTER A SENTENCE TO GET ITS CLASSIFICATION.~%")
+(loop for line = (read-line nil)
+      while line do
+      (format t "~A~%" (classify line)))
