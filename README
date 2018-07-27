@@ -6,4 +6,19 @@ Don't delete these files.
 
 You need to install SBCL, a Lisp compiler, to run the program. "brew install sbcl" should work.
 Once you install SBCL, just type "sbcl --script program.lisp". This will run the program.
-You can now enter sentences at the command line. The AI, based on the training from the example data files, will classify them as ACTION-ITEM, NOT-ACTION-ITEM, or UNSURE and output the result. Press Control-D to quit.
+You can now enter sentences at the command line. The AI, based on the training from the
+example data files, will classify them as ACTION-ITEM, NOT-ACTION-ITEM, or UNSURE and output the result.
+Press Control-D to quit.
+
+EXAMPLE SESSION:
+WELCOME TO ACTIONABLE. ENTER A SENTENCE TO GET ITS CLASSIFICATION.
+We need to coordinate on how to solve the spending problem.
+(ACTION-ITEM 0.75d0)
+Meet me at 8 in the lobby.
+(ACTION-ITEM 0.75d0)
+Are you serious?
+(NOT-ACTION-ITEM 0.375d0)
+Want to grab a bite to eat?
+(NOT-ACTION-ITEM 0.25d0)
+Artificial intelligence is fascinating.
+(UNSURE 0.5d0)

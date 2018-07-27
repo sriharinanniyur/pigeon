@@ -120,7 +120,7 @@
    1.0))
 
 (defun classification (score)
-  (values
+  (list
    (cond
      ((<= score *max-negative-score*) 'not-action-item)
      ((>= score *min-positive-score*) 'action-item)
@@ -138,4 +138,4 @@
 (format t "WELCOME TO ACTIONABLE. ENTER A SENTENCE TO GET ITS CLASSIFICATION.~%")
 (loop for line = (read-line nil)
       while line do
-      (format t "~A~%" (classify line)))
+      (format t "~S~%" (classify line)))
