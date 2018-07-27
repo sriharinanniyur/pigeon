@@ -1,3 +1,3 @@
 git add .
-git commit -m "Start coding"
+git commit -m $1
 git push
