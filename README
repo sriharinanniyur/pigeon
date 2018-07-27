@@ -11,7 +11,6 @@ example data files, will classify them as ACTION-ITEM, NOT-ACTION-ITEM, or UNSUR
 Press Control-D to quit.
 
 Example session:
-WELCOME TO ACTIONABLE. ENTER A SENTENCE TO GET ITS CLASSIFICATION.
 We need to coordinate on how to solve the spending problem.
 (ACTION-ITEM 0.75d0)
 Meet me at 8 in the lobby.

@@ -123,7 +123,8 @@
   (loop for line = (read-line negative-stream nil)
         while line do
         (train line 'negative)))
-(format t "ACTIONABLE~%ENTER A SENTENCE TO GET CLASSIFICATION.~%CTRL-D TO QUIT~%")
+(format t "~%~%--------------~%| ACTIONABLE |~%--------------~%")
+(format t "ENTER A SENTENCE FOR ANALYSIS OR CTRL-D TO QUIT.~%")
 (loop for line = (read-line nil)
       while line do
       (format t "~s~%" (result line)))
