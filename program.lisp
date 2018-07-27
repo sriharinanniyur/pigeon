@@ -1,3 +1,5 @@
+; ACTIONABLE - Action-itemize e-mail.
+
 (defpackage :actionable (:use :common-lisp))
 (in-package :actionable)
 (load "~/quicklisp/setup.lisp")
@@ -13,7 +15,6 @@
 ;(defparameter *corpus* (make-array 1000 :adjustable t :fill-pointer 0))
 
 (defun classify (text)
-  "Classify the text of a message as positive, negative, or UNSURE."
   (classification (score (extract-features text))))
 
 
@@ -21,18 +22,15 @@
   ((word       
     :initarg :word
     :accessor word
-    :initform (error "Must supply :word")
-    :documentation "The word this feature represents.")
+    :initform (error "Must supply :word"))
    (positive-count
     :initarg :positive-count
     :accessor positive-count
-    :initform 0
-    :documentation "Number of positives we have seen this feature in.")
+    :initform 0)
    (negative-count
     :initarg :negative-count
     :accessor negative-count
-    :initform 0
-    :documentation "Number of negatives we have seen this feature in.")))
+    :initform 0)))
 
 (defun intern-feature (word)
   (or (gethash word *feature-database*)
@@ -78,7 +76,6 @@
     (let ((positive-frequency (/ positive-count (max 1 *total-positives*)))
           (negative-frequency (/ negative-count (max 1 *total-negatives*))))
       (/ positive-frequency (+ positive-frequency negative-frequency)))))
-
 
 (defun bayesian-positive-probability (feature &optional
                                   (assumed-probability 1/2)
