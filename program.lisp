@@ -4,21 +4,17 @@
 (in-package :actionable)
 (load "~/quicklisp/setup.lisp")
 (ql:quickload :cl-ppcre)
-(defvar *feature-database* (make-hash-table :test #'equal))
+(defvar *feature-db* (make-hash-table :test #'equal))
 (defvar *total-positives* 0)
 (defvar *total-negatives* 0)
 
 (defparameter *max-negative-score* .4)
 (defparameter *min-positive-score* .6)
 
-(defparameter *max-chars* (* 10 1024))
-;(defparameter *corpus* (make-array 1000 :adjustable t :fill-pointer 0))
+(defun result (text)
+  (classify (score (get-features text))))
 
-(defun classify (text)
-  (classification (score (extract-features text))))
-
-
-(defclass word-feature ()
+(defclass word-info ()
   ((word       
     :initarg :word
     :accessor word
@@ -32,42 +28,42 @@
     :accessor negative-count
     :initform 0)))
 
-(defun intern-feature (word)
-  (or (gethash word *feature-database*)
-      (setf (gethash word *feature-database*)
-            (make-instance 'word-feature :word word))))
+(defun intern-info (word)
+  (or (gethash word *feature-db*)
+      (setf (gethash word *feature-db*)
+            (make-instance 'word-info :word word))))
 
-(defun extract-words (text)
+(defun get-words (text)
   (delete-duplicates
    (cl-ppcre:all-matches-as-strings "[a-zA-Z]{3,}" text)
    :test #'string=))
 
-(defun extract-features (text)
-  (mapcar #'intern-feature (extract-words text)))
+(defun get-features (text)
+  (mapcar #'intern-info (get-words text)))
 
-(defmethod print-object ((object word-feature) stream)
+(defmethod print-object ((object word-info) stream)
   (print-unreadable-object (object stream :type t)
     (with-slots (word negative-count positive-count) object
       (format stream "~s :negatives ~d :positives ~d" word negative-count positive-count))))
 
 (defun train (text type)
-  (dolist (feature (extract-features text))
-    (increment-count feature type))
-  (increment-total-count type))
+  (dolist (feature (get-features text))
+    (incf-count feature type))
+  (incf-total-count type))
 
-(defun increment-count (feature type)
+(defun incf-count (feature type)
   (ecase type
     (negative (incf (negative-count feature)))
     (positive (incf (positive-count feature)))))
 
-(defun increment-total-count (type)
+(defun incf-total-count (type)
   (ecase type
     (negative (incf *total-negatives*))
     (positive (incf *total-positives*))))
 
-(defun clear-database ()
+(defun clear-db ()
   (setf
-   *feature-database* (make-hash-table :test #'equal)
+   *feature-db* (make-hash-table :test #'equal)
    *total-positives* 0
    *total-negatives* 0))
 
@@ -116,7 +112,7 @@
       summing prob)
    1.0))
 
-(defun classification (score)
+(defun classify (score)
   (list
    (cond
      ((<= score *max-negative-score*) 'not-action-item)
@@ -135,4 +131,4 @@
 (format t "WELCOME TO ACTIONABLE. ENTER A SENTENCE TO GET ITS CLASSIFICATION.~%")
 (loop for line = (read-line nil)
       while line do
-      (format t "~S~%" (classify line)))
+      (format t "~S~%" (result line)))
