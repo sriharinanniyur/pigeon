@@ -1,4 +1,6 @@
 ; actionable - action-itemize e-mail.
+; Written by Srihari Nanniyur.
+; Don't bother understanding this code; it's not on your level.
 
 (defpackage :actionable (:use :common-lisp))
 (in-package :actionable)
