@@ -1,4 +1,16 @@
+# READ THE COMMENTS. PLEASE.
+
 import os
+import smtplib
+
+# send_mail() - SMTP mail sending function.
+def send_mail(address, password, target, content):
+    mail = smtplib.SMTP('smtp.gmail.com', 587)
+    mail.ehlo()
+    mail.starttls()
+    mail.login(address, password)
+    mail.sendmail(address, target, content)
+    mail.close()
 
 # get_results() - runs the Lisp program and returns a list of two-element lists that contain:
 # the flag string ("ACTION-ITEM" or "NOT-ACTION-ITEM") as first element and the sentence itself as the second.
