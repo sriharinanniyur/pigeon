@@ -1,5 +1,2 @@
 Actionable
 
-The file NEGATIVES contains sentences that are not action items, and the file POSITIVES contains lines that are.
-This is the data with which the AI is trained. We can add more data later.
-Don't delete these files.
