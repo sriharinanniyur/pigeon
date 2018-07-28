@@ -11,13 +11,17 @@ example data files, will classify them as ACTION-ITEM, NOT-ACTION-ITEM, or UNSUR
 Press Control-D to quit.
 
 Example session:
-We need to coordinate on how to solve the spending problem.
-(ACTION-ITEM 0.75d0)
-Meet me at 8 in the lobby.
-(ACTION-ITEM 0.75d0)
+--------------
+| ACTIONABLE |
+--------------
+ENTER A SENTENCE FOR ANALYSIS OR CTRL-D TO QUIT.
+Let's meet in the lobby at 10.
+ACTION-ITEM "Let's meet in the lobby at 10."
+The important part is to coordinate with the team.
+ACTION-ITEM "The important part is to coordinate with the team."
+I love this food!
+NOT-ACTION-ITEM "I love this food!"
 Are you serious?
-(NOT-ACTION-ITEM 0.375d0)
-Want to grab a bite to eat?
-(NOT-ACTION-ITEM 0.25d0)
-Artificial intelligence is fascinating.
-(UNSURE 0.5d0)
+NOT-ACTION-ITEM "Are you serious?"
+Artificial intelligence is powerful.
+UNSURE "Artificial intelligence is powerful."

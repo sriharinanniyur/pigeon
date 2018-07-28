@@ -108,7 +108,7 @@
    1.0))
 
 (defun classify (score)
-  (list
+  (values
    (cond
      ((<= score *max-negative-score*) 'not-action-item)
      ((>= score *min-positive-score*) 'action-item)
@@ -127,4 +127,4 @@
 (format t "ENTER A SENTENCE FOR ANALYSIS OR CTRL-D TO QUIT.~%")
 (loop for line = (read-line nil)
       while line do
-      (format t "~s~%" (result line)))
+      (format t "~s ~s~%" (result line) line))
