@@ -3,25 +3,3 @@ Actionable
 The file NEGATIVES contains sentences that are not action items, and the file POSITIVES contains lines that are.
 This is the data with which the AI is trained. We can add more data later.
 Don't delete these files.
-
-You need to install SBCL, a Lisp compiler, to run the program. "brew install sbcl" should work.
-Once you install SBCL, just type "sbcl --script program.lisp". This will run the program.
-You can now enter sentences at the command line. The AI, based on the training from the
-example data files, will classify them as ACTION-ITEM, NOT-ACTION-ITEM, or UNSURE and output the result along with the AI score.
-Press Control-D to quit.
-
-Example session:
---------------
-| ACTIONABLE |
---------------
-ENTER A SENTENCE FOR ANALYSIS OR CTRL-D TO QUIT.
-Let's meet in the lobby at 10.
-ACTION-ITEM "Let's meet in the lobby at 10."
-The important part is to coordinate with the team.
-ACTION-ITEM "The important part is to coordinate with the team."
-I love this food!
-NOT-ACTION-ITEM "I love this food!"
-Are you serious?
-NOT-ACTION-ITEM "Are you serious?"
-Artificial intelligence is powerful.
-UNSURE "Artificial intelligence is powerful."
