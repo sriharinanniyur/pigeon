@@ -1,0 +1,10 @@
+
+
+--------------
+| ACTIONABLE |
+--------------
+ENTER A SENTENCE FOR ANALYSIS OR CTRL-D TO QUIT.
+ACTION-ITEM "Let's meet in the lobby at 10."
+NOT-ACTION-ITEM "Are you hungry?"
+NOT-ACTION-ITEM "Are you serious?"
+ACTION-ITEM "Coordinate with Susan."

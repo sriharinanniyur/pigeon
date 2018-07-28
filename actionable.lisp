@@ -3,7 +3,7 @@
 (defpackage :actionable (:use :common-lisp))
 (in-package :actionable)
 (load "~/quicklisp/setup.lisp")
-(ql:quickload :cl-ppcre)
+(ql:quickload :cl-ppcre :silent t)
 (defvar *info-db* (make-hash-table :test #'equal))
 (defvar *total-positives* 0)
 (defvar *total-negatives* 0)
@@ -123,8 +123,8 @@
   (loop for line = (read-line negative-stream nil)
         while line do
         (train line 'negative)))
-(format t "~%~%--------------~%| ACTIONABLE |~%--------------~%")
-(format t "ENTER A SENTENCE FOR ANALYSIS OR CTRL-D TO QUIT.~%")
-(loop for line = (read-line nil)
-      while line do
-      (format t "~s ~s~%" (result line) line))
+(with-open-file (input-stream "data/DATA")
+  (with-open-file (output-stream "data/RESULTS" :direction :output :if-exists :supersede)
+    (loop for line = (read-line input-stream nil)
+          while line do
+          (format output-stream "~s ~s~%" (result line) line))))
