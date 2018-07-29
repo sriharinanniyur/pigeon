@@ -1,6 +1,5 @@
 ; actionable.lisp - action-itemize e-mail.
 ; Written by creator of sentient mail programs Srihari Nanniyur.
-; Don't bother understanding this code; it's not on your level.
 
 (defpackage :actionable (:use :common-lisp))
 (in-package :actionable)
