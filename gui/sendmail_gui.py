@@ -53,5 +53,3 @@ def sendmail_gui():
     sendmail = tk.Button(text="Send", command=smtp_send)
     sendmail.grid(row=6, column=0)
     root.mainloop()
-
-sendmail_gui()
