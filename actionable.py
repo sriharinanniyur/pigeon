@@ -1,5 +1,4 @@
 # actionable.py - main functions for interfacing with Lisp AI program.
-# Written by master of code Srihari Nanniyur.
 # READ THE COMMENTS. PLEASE.
 
 import os
