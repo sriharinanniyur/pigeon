@@ -1,5 +1,5 @@
 # Returns the sentiment score of a sentence.
-
+# Written by NLP ninja Aadit Trivedi.
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 

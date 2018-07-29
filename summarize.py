@@ -1,6 +1,6 @@
 # Dependencies
 # pip3 install summarizer
-
+# Written by utilizer of libraries Aadit Trivedi.
 from summarizer import summarize
 
 def sum(title,text,count):

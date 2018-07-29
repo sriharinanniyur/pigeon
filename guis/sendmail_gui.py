@@ -1,3 +1,6 @@
+# sendmail_gui.py - GUI for sending mail.
+# Written by certified Tkinter wizard Aadit Trivedi.
+
 import tkinter as tk
 from tkinter import END
 import smtplib
