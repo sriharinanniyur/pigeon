@@ -1,6 +1,7 @@
 # Features
 # 1) Sentiment analysis
 # 2) Summarize email
+# 3) AI classificaiton of actionable items within emails
 
 # ------------------------------------------------------#
 # Returns the sentiment score of a sentence.
@@ -53,11 +54,9 @@ def sum(title,text,count):
 # -------------------------------------------------------------------------------------------------#
 # smart_reply() -- Function responsible for easily sending standard response based on user's choice
 #--------------------------------------------------------------------------------------------------#
-
 aff = "Thank you for the reminder. Looking forward to meeting you!"
 neg = "Thanks for the invite, but I will not be able to attend due to a conflict. Would any other times work?"
 med = "I will get back to you as soon as possible."
-
 def smart_reply(email_address, user_pwd, target, response_type):
   if response_type == aff:
     smtp_send(email_address, user_pwd, target, aff)
@@ -65,3 +64,22 @@ def smart_reply(email_address, user_pwd, target, response_type):
     smtp_send(email_address, user_pwd, target, neg)
   elif response_type == med:
     smtp_send(email_address, user_pwd, target, med)
+
+    
+# -------------------------------------------------------------------------------------------------#
+# function for interfacing with Lisp AI program.
+# -------------------------------------------------------------------------------------------------#
+import os
+import smtplib
+
+# get_results() - runs the Lisp program and returns a list of two-element lists that contain:
+# the flag string ("ACTION-ITEM" or "NOT-ACTION-ITEM") as first element and the sentence itself as the second.
+def get_results():
+    os.system('sbcl --script actionable.lisp') # run the Lisp file
+    with open('data/RESULTS', 'r') as fin:
+        return [[line.split()[0], ' '.join(line.split()[1:]).upper()] for line in fin.readlines()]
+# flag() - appends a string to the POSITIVES file if ident=True and the NEGATIVES file if ident=False.
+# This is for the user to be able to give data to the AI for training.
+def flag(string, ident):
+    with open(('training/POSITIVES' if ident else 'training/NEGATIVES'), 'a+') as fout:
+        fout.write(string + '\n')
