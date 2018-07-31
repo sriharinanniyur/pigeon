@@ -16,4 +16,3 @@ def get_results():
 def flag(string, ident):
     with open(('training/POSITIVES' if ident else 'training/NEGATIVES'), 'a+') as fout:
         fout.write(string + '\n')
-get_results()
