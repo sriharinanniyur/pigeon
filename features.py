@@ -1,8 +1,9 @@
 # Features
 # 1) Sentiment analysis
 # 2) Summarize email
-# Returns the sentiment score of a sentence.
 
+# Returns the sentiment score of a sentence.
+# Dendencies: nltk
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
@@ -32,20 +33,17 @@ def sentiment_analysis(sentence):
             elif (key == "compound"):
                 return "compound: " + str(round(100 * dominant_emotion)) + "%"
 
-
-# Dependencies
-# pip3 install summarizer
+# Summarizes provided text in provided number of lines
+# Dependencies: summarizer
 from summarizer import summarize
 
 def sum(title,text,count):
   summarize(title,text,count)
 
-# Example input (Martin Luther King Jr.'s "I Have A Dream" speech)
+# Example input --> Martin Luther King Jr.'s "I Have A Dream" speech
 # Output:
-# [
-# 'It is obvious today that America has defaulted on this promissory noteinsofar as her citizens of color are concerned.', 
+# ['It is obvious today that America has defaulted on this promissory noteinsofar as her citizens of color are concerned.', 
 # 'We refuse to believe that there are insufficient funds in the great vaults of opportunity of this nation.', 
 # 'This is no time to engage in the luxury of cooling off or to take the tranquilizing drug of gradualism.', 
 # 'I say to you today, my friends, so even though we face the difficulties of today and tomorrow, I still have a dream.', 
-# 'It is a dream deeply rooted in the American dream.'
-# ]        
+# 'It is a dream deeply rooted in the American dream.']
