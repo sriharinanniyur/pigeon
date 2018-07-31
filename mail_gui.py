@@ -3,6 +3,9 @@
 import tkinter as tk
 from tkinter import END
 import smtplib
+import imaplib
+import email
+import html2text
 
 def sendmail_gui():
     root = tk.Tk()
