@@ -47,3 +47,13 @@ def sum(title,text,count):
 # 'This is no time to engage in the luxury of cooling off or to take the tranquilizing drug of gradualism.', 
 # 'I say to you today, my friends, so even though we face the difficulties of today and tomorrow, I still have a dream.', 
 # 'It is a dream deeply rooted in the American dream.']
+
+
+
+def smart_reply(email_address, user_pwd, target, response_type):
+  if response_type == aff:
+    smtp_send(email_address, user_pwd, target, aff)
+  elif response_type == neg:
+    smtp_send(email_address, user_pwd, target, neg)
+  elif response_type == med:
+    smtp_send(email_address, user_pwd, target, med)
