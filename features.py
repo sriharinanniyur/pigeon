@@ -3,12 +3,22 @@
 # 2) Summarize email
 # 3) AI classificaiton of actionable items within emails
 
+
+
+# --------------------- Dependencies --------------------- #
+import os
+import smtplib
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from summarizer import summarize
+# ---------------------------------------------------------#
+
+
+
 # ------------------------------------------------------#
 # Returns the sentiment score of a sentence.
 # Dendencies: nltk
 # ------------------------------------------------------#
-import nltk
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
 def bubbleSort(mylist):
     for num in range(len(mylist)-1,0,-1):
         for i in range(num):
@@ -35,11 +45,11 @@ def sentiment_analysis(sentence):
                 return "compound: " + str(round(100 * dominant_emotion)) + "%"
             
             
+            
 # ------------------------------------------------------#
 # Summarizes provided text in provided number of lines
 # Dependencies: summarizer
 # ------------------------------------------------------#
-from summarizer import summarize
 def sum(title,text,count):
   summarize(title,text,count)
 # Example input --> Martin Luther King Jr.'s "I Have A Dream" speech
@@ -49,6 +59,7 @@ def sum(title,text,count):
 # 'This is no time to engage in the luxury of cooling off or to take the tranquilizing drug of gradualism.', 
 # 'I say to you today, my friends, so even though we face the difficulties of today and tomorrow, I still have a dream.', 
 # 'It is a dream deeply rooted in the American dream.']
+
 
 
 # -------------------------------------------------------------------------------------------------#
@@ -66,20 +77,19 @@ def smart_reply(email_address, user_pwd, target, response_type):
     smtp_send(email_address, user_pwd, target, med)
 
     
+    
 # -------------------------------------------------------------------------------------------------#
-# function for interfacing with Lisp AI program.
+# Interfacing with Lisp AI program.
+# Depdencies: os, smtplib
 # -------------------------------------------------------------------------------------------------#
-import os
-import smtplib
-
-# get_results() - runs the Lisp program and returns a list of two-element lists that contain:
-# the flag string ("ACTION-ITEM" or "NOT-ACTION-ITEM") as first element and the sentence itself as the second.
 def get_results():
+    # get_results() - runs the Lisp program and returns a list of two-element lists that contain:
+    # the flag string ("ACTION-ITEM" or "NOT-ACTION-ITEM") as first element and the sentence itself as the second.
     os.system('sbcl --script actionable.lisp') # run the Lisp file
     with open('data/RESULTS', 'r') as fin:
         return [[line.split()[0], ' '.join(line.split()[1:]).upper()] for line in fin.readlines()]
-# flag() - appends a string to the POSITIVES file if ident=True and the NEGATIVES file if ident=False.
-# This is for the user to be able to give data to the AI for training.
 def flag(string, ident):
+    # flag() - appends a string to the POSITIVES file if ident=True and the NEGATIVES file if ident=False.
+    # This is for the user to be able to give data to the AI for training.
     with open(('training/POSITIVES' if ident else 'training/NEGATIVES'), 'a+') as fout:
         fout.write(string + '\n')
