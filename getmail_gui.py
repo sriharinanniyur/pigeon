@@ -2,6 +2,7 @@ import imaplib
 import email
 import html2text
 import tkinter as tk
+from tkinter import END
 
 def getmail_gui():
     root = tk.Tk()
