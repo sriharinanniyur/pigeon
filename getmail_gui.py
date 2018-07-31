@@ -10,18 +10,18 @@ def getmail_gui():
     host_label.grid(row=0, column=0)
     address_label = tk.Label(root, text="Email Address")
     address_label.grid(row=1, column=0)
-    password_label = tk.Label(root, text="Password")
-    password_label.grid(row=2, column=0)
+    pwd_label = tk.Label(root, text="Password")
+    pwd_label.grid(row=2, column=0)
     host_entry = tk.Entry(root)
     host_entry.grid(row=0, column=1)
     address_entry = tk.Entry(root)
     address_entry.grid(row=1, column=1)
-    password_entry = tk.Entry(root, show="•")
-    password_entry.grid(row=2, column=1)
+    pwd_entry = tk.Entry(root, show="•")
+    pwd_entry.grid(row=2, column=1)
 
     def getmail():
         M = imaplib.IMAP4_SSL(host_entry.get())
-        M.login(address_entry.get(), password_entry.get())
+        M.login(address_entry.get(), pwd_entry.get())
         rv, data = M.select('INBOX')
         if rv == 'OK':
             rv, data = M.search(None, 'ALL')
@@ -39,6 +39,11 @@ def getmail_gui():
                                 continue
         else:
             raise Exception(rv)
+            
+        host_entry.delete(0, END)
+        address_entry.delete(0, END)
+        pwd_entry.delete(0, END)
+        
         M.close()
         M.logout()
         root.destroy()
