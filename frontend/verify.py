@@ -1,5 +1,7 @@
 # Verifies the existence of an email address
 
+import smtplib
+
 def veripy(SERVER, SMTP_PORT, email):
   server = smtplib.SMTP(str(SERVER), int(SMTP_PORT))
   server.connect()
