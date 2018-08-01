@@ -85,7 +85,7 @@ def smart_reply(email_address, user_pwd, target, response_type):
 def get_results():
     # get_results() - runs the Lisp program and returns a list of two-element lists that contain:
     # the flag string ("ACTION-ITEM" or "NOT-ACTION-ITEM") as first element and the sentence itself as the second.
-    os.system('sbcl --script actionable.lisp') # run the Lisp file
+    os.system('sbcl --script main.lisp') # run the Lisp file
     with open('data/RESULTS', 'r') as fin:
         return [[line.split()[0], ' '.join(line.split()[1:]).upper()] for line in fin.readlines()]
 def flag(string, ident):
