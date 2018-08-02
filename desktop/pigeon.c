@@ -30,11 +30,11 @@ void get_uname_pwd(void)
     gtk_entry_set_visibility(GTK_ENTRY(auth_pwd_entry), FALSE);
     auth_btn = gtk_button_new_with_label("Authenticate");
     auth_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, -1);
-	gtk_box_pack_start(GTK_BOX(auth_box), auth_uname_entry, FALSE, FALSE, 1);
-	gtk_box_pack_start(GTK_BOX(auth_box), auth_pwd_entry, FALSE, FALSE, 1);
-	gtk_box_pack_start(GTK_BOX(auth_box), auth_btn, FALSE, FALSE, 1);
-	gtk_container_add(GTK_CONTAINER(auth_window), auth_box);
-	g_signal_connect(auth_window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+    gtk_box_pack_start(GTK_BOX(auth_box), auth_uname_entry, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(auth_box), auth_pwd_entry, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(auth_box), auth_btn, FALSE, FALSE, 1);
+    gtk_container_add(GTK_CONTAINER(auth_window), auth_box);
+    g_signal_connect(auth_window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     g_signal_connect(auth_btn, "clicked", G_CALLBACK(authenticate), NULL);
     gtk_widget_show_all(auth_window);
     gtk_main();
