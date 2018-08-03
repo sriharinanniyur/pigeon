@@ -17,7 +17,7 @@ int fetch_mail(char *username, char *password, int section, int num)
     char url[MAXLEN];
     sprintf(url, "%s%.5d%s", "imaps://imap.gmail.com:993/INBOX/;UID=", num,
         (section ? "/;SECTION=1" : "/;SECTION=HEADER.FIELDS%20(DATE%20FROM%20TO%20SUBJECT)"));
-    if ((stream = fopen((section ? "MESSAGE" : "HEADERS"), (section ? "w" : "a+"))) == NULL)
+    if ((stream = fopen((section ? "data/DATA" : "HEADERS"), (section ? "w" : "a+"))) == NULL)
         return 0;
     fprintf(stream, "message %d\n", num);
     printf("processing message %d\n", num);

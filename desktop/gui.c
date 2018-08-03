@@ -1,5 +1,6 @@
-#include "mail.h"
 #include "gui.h"
+#include "mail.h"
+#include "analyze.h"
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,13 +9,18 @@
 static GtkCssProvider *provider;
 static GtkStyleContext *context;
 
-static GtkWidget *window, *view, *scroller, *button_view, *button_send, *entry, *box;
+static GtkWidget *window, *view, *scroller, *button_view, *button_send, *button_analyze, *entry_num, *box;
 static GtkTextBuffer *buffer;
 
 static GtkWidget *msg_window, *msg_view, *msg_scroller;
 static GtkTextBuffer *msg_buffer;
 
 static GtkWidget *send_window, *send_from_entry, *send_to_entry, *send_cc_entry, *send_content_entry, *send_btn, *send_box;
+
+static void analyze(GtkWidget *p, gpointer data)
+{
+    analyze_gui();
+}
 
 static void send_message(GtkWidget *p, gpointer data)
 {
@@ -64,9 +70,8 @@ static void view_message_gui(GtkWidget *p, gpointer data)
     long numbytes;
     FILE *fp;
     fetch_mail(USERNAME, PASSWORD, BODY,
-               atoi(gtk_entry_get_text(GTK_ENTRY(entry))));
-    system("html2text MESSAGE > TEXT");
-    if ((fp = fopen("TEXT", "r")) == NULL)
+               atoi(gtk_entry_get_text(GTK_ENTRY(entry_num))));
+    if ((fp = fopen("data/DATA", "r")) == NULL)
         return;
     fseek(fp, 0L, SEEK_END);
     numbytes = ftell(fp);
@@ -89,7 +94,7 @@ static void view_message_gui(GtkWidget *p, gpointer data)
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroller),
                                    GTK_POLICY_AUTOMATIC,
                                    GTK_POLICY_AUTOMATIC);
-    gtk_widget_set_size_request(msg_scroller, 300, 400);
+    gtk_widget_set_size_request(msg_scroller, 300, 300);
     gtk_container_add(GTK_CONTAINER(msg_scroller), msg_view);
     gtk_container_add(GTK_CONTAINER(msg_window), msg_scroller);
     g_signal_connect(msg_window, "destroy",
@@ -116,7 +121,7 @@ void main_gui()
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), USERNAME);
-    gtk_window_set_default_size(GTK_WINDOW(window), 400, 500);
+    gtk_window_set_default_size(GTK_WINDOW(window), 600, 600);
 
     buffer = gtk_text_buffer_new(NULL);
     gtk_text_buffer_set_text(buffer, filebuf, numbytes);
@@ -140,19 +145,22 @@ void main_gui()
 
     button_view = gtk_button_new_with_label("View Message");
     button_send = gtk_button_new_with_label("Send Message");
-    entry = gtk_entry_new();
-    gtk_entry_set_placeholder_text(GTK_ENTRY(entry), "Message number...");
+    button_analyze = gtk_button_new_with_label("Analyze Messages");
+    entry_num = gtk_entry_new();
+    gtk_entry_set_placeholder_text(GTK_ENTRY(entry_num), "Message number...");
 
     box = gtk_box_new(GTK_ORIENTATION_VERTICAL, -1);
     gtk_box_pack_start(GTK_BOX(box), button_view, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(box), button_send, FALSE, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(box), entry, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(box), button_analyze, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(box), entry_num, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(box), scroller, TRUE, TRUE, 1);
 
     gtk_container_add(GTK_CONTAINER(window), box);
     g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     g_signal_connect(button_view, "clicked", G_CALLBACK(view_message_gui), NULL);
     g_signal_connect(button_send, "clicked", G_CALLBACK(send_message_gui), NULL);
+    g_signal_connect(button_analyze, "clicked", G_CALLBACK(analyze), NULL);
     gtk_widget_show_all(window);
     gtk_main();
 }

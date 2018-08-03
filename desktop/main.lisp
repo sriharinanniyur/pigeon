@@ -1,3 +1,5 @@
+(defpackage :actionable (:use :common-lisp))
+(in-package :actionable)
 (load "~/quicklisp/setup.lisp")
 (ql:quickload :cl-ppcre :silent t)
 (defvar *info-db* (make-hash-table :test #'equal))

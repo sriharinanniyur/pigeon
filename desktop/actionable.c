@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     get_uname_pwd();
     fetch_headers(USERNAME, PASSWORD);
     main_gui();
-    system("rm HEADERS MESSAGE SENDMESSAGE TEXT");
+    system("rm HEADERS SENDMESSAGE");
     return 0;
 }
 
@@ -34,7 +34,6 @@ void get_uname_pwd(void)
     gtk_box_pack_start(GTK_BOX(auth_box), auth_pwd_entry, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(auth_box), auth_btn, FALSE, FALSE, 1);
     gtk_container_add(GTK_CONTAINER(auth_window), auth_box);
-    g_signal_connect(auth_window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     g_signal_connect(auth_btn, "clicked", G_CALLBACK(authenticate), NULL);
     gtk_widget_show_all(auth_window);
     gtk_main();
