@@ -11,6 +11,7 @@ import smtplib
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from summarizer import summarize
+from autocorrect import spell
 # ---------------------------------------------------------#
 
 
@@ -93,3 +94,19 @@ def flag(string, ident):
     # This is for the user to be able to give data to the AI for training.
     with open(('training/POSITIVES' if ident else 'training/NEGATIVES'), 'a+') as fout:
         fout.write(string + '\n')
+        
+
+        
+# ------------------------------------------------------#
+# Returns corrected words in brand new dictionary
+# Dependencies: autocorrect
+# ------------------------------------------------------#
+def correct(email_content):
+  new_content = []
+  for word in email_content:
+    if str(word) == str(spell(word)):
+        new_content.append(word)
+    else:
+        new_content.append(spell(word))
+# Example input --> "This is teh ablum"
+# Output: ['This', 'is', 'the', 'album']
