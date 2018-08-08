@@ -1,4 +1,4 @@
-# Written by Aadit Trivedi and Srihari Nanniyur
+# Written by Aadit Trivedi
 
 import matplotlib.pyplot as plt
 import os
@@ -13,4 +13,4 @@ def genWC(file_path_wc):
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis("off")
     plt.show()
-genWC('data/DATA')
+genWC('data/DATA') # KEEP THIS LINE
