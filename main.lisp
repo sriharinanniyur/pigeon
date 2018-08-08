@@ -127,4 +127,5 @@
   (with-open-file (output-stream "data/RESULTS" :direction :output :if-exists :supersede)
     (loop for line = (read-line input-stream nil)
           while line do
-          (format output-stream "~s ~s~%" (result line) line))))
+          (when (equal (result line) 'action-item)
+            (format output-stream "~s ~s~%" (result line) line)))))
