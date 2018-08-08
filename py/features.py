@@ -2,15 +2,21 @@
 # 1) Sentiment analysis
 # 2) Summarize email
 # 3) AI classificaiton of actionable items within emails
+# 4) Autocorrect email content
+# 5) Generate a wordcloud
 
 
 
 # --------------------- Dependencies --------------------- #
 import os
+from os import path
 import smtplib
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from summarizer import summarize
+from autocorrect import spell
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 # ---------------------------------------------------------#
 
 
@@ -93,3 +99,35 @@ def flag(string, ident):
     # This is for the user to be able to give data to the AI for training.
     with open(('training/POSITIVES' if ident else 'training/NEGATIVES'), 'a+') as fout:
         fout.write(string + '\n')
+        
+
+        
+# ------------------------------------------------------#
+# Returns corrected words in brand new dictionary
+# Dependencies: autocorrect
+# ------------------------------------------------------#
+def correct(email_content):
+  new_content = []
+  for word in email_content:
+    if str(word) == str(spell(word)):
+        new_content.append(word)
+    else:
+        new_content.append(spell(word))
+# Example input --> "This is teh ablum"
+# Output: ['This', 'is', 'the', 'album']
+
+
+
+
+# ------------------------------------------------------------------#
+# Displays a wordcloud given a file with words
+# Dependencies: os, os.path, wordcloud.WordCloud, matplotlib.pyplot
+# ------------------------------------------------------------------#
+def genWC(file_path_wc):
+    d = path.dirname(__file__) if "__file__" in locals() else os.getcwd()
+    text = open(path.join(d, str(file_path_wc))).read()
+    wordcloud = WordCloud().generate(text)
+    wordcloud = WordCloud(max_font_size=40).generate(text)
+    plt.imshow(wordcloud, interpolation="bilinear")
+    plt.axis("off")
+    plt.show()
