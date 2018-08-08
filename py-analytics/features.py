@@ -19,6 +19,7 @@ from summarizer import summarize
 from autocorrect import spell
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+import goslate
 # ---------------------------------------------------------#
 
 
@@ -133,3 +134,13 @@ def genWC(file_path_wc):
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.axis("off")
     plt.show()
+
+    
+    
+# ------------------------------------------------------------------#
+# Translates provided text into provided language
+# Dependencies: goslate
+# ------------------------------------------------------------------#
+def translate_into_lang(text_to_tran, target_lan):
+    _slate_ = goslate.Goslate()
+    return _slate_.translate(str(text_to_tran), str(target_lan))
