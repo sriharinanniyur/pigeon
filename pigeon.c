@@ -1,3 +1,5 @@
+// Written by Srihari Nanniyur.
+
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <unistd.h>

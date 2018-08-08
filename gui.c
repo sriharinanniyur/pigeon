@@ -1,3 +1,5 @@
+// Written by Srihari Nanniyur.
+
 #include "gui.h"
 #include "mail.h"
 #include "analyze.h"
@@ -157,10 +159,10 @@ void main_gui()
     gtk_box_pack_start(GTK_BOX(box), scroller, TRUE, TRUE, 1);
 
     gtk_container_add(GTK_CONTAINER(window), box);
-    g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     g_signal_connect(button_view, "clicked", G_CALLBACK(view_message_gui), NULL);
     g_signal_connect(button_send, "clicked", G_CALLBACK(send_message_gui), NULL);
     g_signal_connect(button_analyze, "clicked", G_CALLBACK(analyze), NULL);
+    g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     gtk_widget_show_all(window);
     gtk_main();
 }

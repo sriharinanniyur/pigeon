@@ -1,3 +1,5 @@
+// Written by Srihari Nanniyur.
+
 #include "mail.h"
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,3 +1,5 @@
+// Written by Srihari Nanniyur.
+
 #include "analyze.h"
 #include <gtk/gtk.h>
 #include "mail.h"
@@ -5,15 +7,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-static GtkWidget *window, *entry_num, *entry_flag, *btn_flag, *btn_itemize, *btn_cloud, *box;
+static GtkWidget *window, *entry_num, *entry_flag, *btn_flag, *btn_itemize, *btn_summarize, *btn_cloud, *box;
 
 static GtkWidget *item_window, *item_view, *item_scroller;
 static GtkTextBuffer *item_buffer;
 
+static void summarize(GtkWidget *p, gpointer data)
+{
+    fetch_mail(USERNAME, PASSWORD, BODY, atoi(gtk_entry_get_text(GTK_ENTRY(entry_num))));
+    system("python3 py-analytics/summarize.py");
+}
+
 static void word_cloud(GtkWidget *p, gpointer data)
 {
-	fetch_mail(USERNAME, PASSWORD, BODY, atoi(gtk_entry_get_text(GTK_ENTRY(entry_num))));
-	system("python3 py-analytics/word_cloud.py");
+    fetch_mail(USERNAME, PASSWORD, BODY, atoi(gtk_entry_get_text(GTK_ENTRY(entry_num))));
+    system("python3 py-analytics/word_cloud.py");
 }
 
 static void flag(GtkWidget *p, gpointer data)
@@ -76,18 +84,21 @@ void analyze_gui(void)
     entry_flag = gtk_entry_new();
     gtk_entry_set_placeholder_text(GTK_ENTRY(entry_flag), "Flag as... (1 for positive or 0 for negative)");
     btn_flag = gtk_button_new_with_label("Flag Message");
-    btn_itemize = gtk_button_new_with_label("Action-Itemize!");
-	btn_cloud = gtk_button_new_with_label("Word Cloud");
+    btn_itemize = gtk_button_new_with_label("Action-Itemize");
+    btn_summarize = gtk_button_new_with_label("Summarize");
+    btn_cloud = gtk_button_new_with_label("Word Cloud");
     box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 1);
     gtk_box_pack_start(GTK_BOX(box), entry_num, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(box), entry_flag, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(box), btn_itemize, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(box), btn_flag, FALSE, FALSE, 1);
-	gtk_box_pack_start(GTK_BOX(box), btn_cloud, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(box), btn_summarize, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(box), btn_cloud, FALSE, FALSE, 1);
     gtk_container_add(GTK_CONTAINER(window), box);
     g_signal_connect(btn_flag, "clicked", G_CALLBACK(flag), NULL);
     g_signal_connect(btn_itemize, "clicked", G_CALLBACK(itemize), NULL);
-	g_signal_connect(btn_cloud, "clicked", G_CALLBACK(word_cloud), NULL);
+    g_signal_connect(btn_summarize, "clicked", G_CALLBACK(summarize), NULL);
+    g_signal_connect(btn_cloud, "clicked", G_CALLBACK(word_cloud), NULL);
     g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     gtk_widget_show_all(window);
     gtk_main();
