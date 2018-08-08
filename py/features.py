@@ -7,11 +7,14 @@
 
 # --------------------- Dependencies --------------------- #
 import os
+from os import path
 import smtplib
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from summarizer import summarize
 from autocorrect import spell
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 # ---------------------------------------------------------#
 
 
@@ -110,3 +113,19 @@ def correct(email_content):
         new_content.append(spell(word))
 # Example input --> "This is teh ablum"
 # Output: ['This', 'is', 'the', 'album']
+
+
+
+
+# ------------------------------------------------------------------#
+# Displays a wordcloud given a file with words
+# Dependencies: os, os.path, wordcloud.WordCloud, matplotlib.pyplot
+# ------------------------------------------------------------------#
+def genWC(file_path_wc):
+    d = path.dirname(__file__) if "__file__" in locals() else os.getcwd()
+    text = open(path.join(d, str(file_path_wc))).read()
+    wordcloud = WordCloud().generate(text)
+    wordcloud = WordCloud(max_font_size=40).generate(text)
+    plt.imshow(wordcloud, interpolation="bilinear")
+    plt.axis("off")
+    plt.show()
