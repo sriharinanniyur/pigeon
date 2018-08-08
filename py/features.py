@@ -2,6 +2,8 @@
 # 1) Sentiment analysis
 # 2) Summarize email
 # 3) AI classificaiton of actionable items within emails
+# 4) Autocorrect email content
+# 5) Generate a wordcloud
 
 
 
