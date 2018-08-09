@@ -6,6 +6,8 @@
 # 3) AI classificaiton of actionable items within emails
 # 4) Autocorrect email content
 # 5) Generate a wordcloud
+# 6) Language translator for email content
+# 7) Email validator
 
 
 
@@ -21,6 +23,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import goslate
 import email.message
+import validate_email
 # ---------------------------------------------------------#
 
 
@@ -276,3 +279,16 @@ def html_send_mail(mail_subject, mail_from, mail_to, html_content, user_login, u
     s.login(user_login,
             user_pwd)
     s.sendmail(msg['From'], [msg['To']], msg.as_string())
+
+    
+    
+# ------------------------------------------------------------------#
+# Validates an email address
+# Dependencies: validate_email
+# ------------------------------------------------------------------#
+def validator_email(email_to_val):
+    email_validity = validate_email(str(email_to_val))
+    if (email_validity == True):
+        return True
+    elif (email_validity == False):
+        return False
