@@ -8,20 +8,18 @@
 
 
 GtkWidget *auth_window, *auth_uname_entry, *auth_pwd_entry, *auth_btn, *auth_box;
-void get_uname_pwd(void);
-void authenticate(GtkWidget *, gpointer);
+void start_program(void);
+void authenticate_and_run(GtkWidget *, gpointer);
 
 int main(int argc, char **argv)
 {
     gtk_init(&argc, &argv);
-    get_uname_pwd();
-    fetch_headers(USERNAME, PASSWORD);
-    main_gui();
+    start_program();
     system("rm HEADERS SENDMESSAGE");
     return 0;
 }
 
-void get_uname_pwd(void)
+void start_program(void)
 {
     auth_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_default_size(GTK_WINDOW(auth_window), 300, 150);
@@ -36,15 +34,17 @@ void get_uname_pwd(void)
     gtk_box_pack_start(GTK_BOX(auth_box), auth_pwd_entry, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(auth_box), auth_btn, FALSE, FALSE, 1);
     gtk_container_add(GTK_CONTAINER(auth_window), auth_box);
-    g_signal_connect(auth_btn, "clicked", G_CALLBACK(authenticate), NULL);
-    g_signal_connect(auth_window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+    g_signal_connect(auth_btn, "clicked", G_CALLBACK(authenticate_and_run), NULL);
     gtk_widget_show_all(auth_window);
     gtk_main();
 }
 
-void authenticate(GtkWidget *p, gpointer data)
+void authenticate_and_run(GtkWidget *p, gpointer data)
 {
     strncpy(USERNAME, gtk_entry_get_text(GTK_ENTRY(auth_uname_entry)), MAXLEN);
     strncpy(PASSWORD, gtk_entry_get_text(GTK_ENTRY(auth_pwd_entry)), MAXLEN);
+    fetch_headers(USERNAME, PASSWORD);
+    gtk_widget_destroy(auth_window);
     gtk_main_quit();
+    main_gui();
 }
