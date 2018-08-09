@@ -20,6 +20,7 @@ from autocorrect import spell
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import goslate
+import email.message
 # ---------------------------------------------------------#
 
 
@@ -254,3 +255,24 @@ def translate_into_lang(text_to_tran, target_lan):
         return _slate_.translate(str(text_to_tran), str(target_lan))
     else:
         return "Invalid target language"
+
+    
+    
+# -------------------------------------------------------------------------------------------------#
+# Sends an HTML email.
+# Depdencies: email, smtplib
+# -------------------------------------------------------------------------------------------------#
+
+def html_send_mail(mail_subject, mail_from, mail_to, html_content, user_login, user_pwd):
+    msg = email.message.Message()
+    msg['Subject'] = 'foo'
+    msg['From'] = 'sender@test.com'
+    msg['To'] = 'recipient@test.com'
+    msg.add_header('Content-Type','text/html')
+    msg.set_payload(html_content)
+
+    s = smtplib.SMTP(mailmerge_conf.smtp_server)
+    s.starttls()
+    s.login(user_login,
+            user_pwd)
+    s.sendmail(msg['From'], [msg['To']], msg.as_string())
