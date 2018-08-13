@@ -10,6 +10,7 @@
 ## OS X instructions (assuming Homebrew, Python3/PIP3, and a C compiler are installed):
  - Run the shell command "brew install gtk3". This will take a while, so now would be a good time for a coffee break.
  - Run the shell command "brew install sbcl". This installs the SBCL Lisp compiler.
+ - cd into your Downloads folder and run "curl -O https://beta.quicklisp.org/quicklisp.lisp". Then, run "sbcl --load quicklisp.lisp". At the prompt, type "(quicklisp-quickstart:install)". When the process is finished, exit with Ctrl-D.
  - libcURL is usually installed by default on OS X, so you don't need to install it.
- - Run the shell command "pip3 install summarizer nltk wordcloud"
+ - Run the shell command "pip3 install summarizer nltk wordcloud matplotlib".
 
