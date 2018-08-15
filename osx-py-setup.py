@@ -1,4 +1,5 @@
 # FOR OSX
+# Written by Aadit Trivedi
 
 import os
 
