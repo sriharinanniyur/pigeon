@@ -15,7 +15,7 @@
   3. ``sudo chmod +x osx-install.sh``
   4. Finally, ``$ ./osx-install.sh``
 
-# -----------------------------------------------OR------------------------------------------------------------
+# -----------------------------------OR------------------------------------------
 
  - Run the shell command ``brew install gtk3``. This will take a while, so now would be a good time for a coffee break.
  - Run the shell command ``brew install sbcl``. This installs the SBCL Lisp compiler.
