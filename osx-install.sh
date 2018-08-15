@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# written by Aadit Trivedi
 # requires this "sudo chmod +x osx-install.sh" to be executable through "./osx-install.sh"
 
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
