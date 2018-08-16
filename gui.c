@@ -10,7 +10,7 @@
 static GtkCssProvider *provider;
 static GtkStyleContext *context;
 
-static GtkWidget *window, *view, *scroller, *button_view, *button_send, *entry_num, *btn_box, *view_box, *box;
+static GtkWidget *window, *view, *scroller, *btn_view, *btn_send, *entry_num, *top_box, *mid_box, *box;
 static GtkTextBuffer *buffer;
 
 static GtkWidget *msg_view, *msg_scroller;
@@ -18,7 +18,7 @@ static GtkTextBuffer *msg_buffer;
 
 static GtkWidget *send_frame, *send_from_entry, *send_to_entry, *send_cc_entry, *send_content_entry, *send_box;
 
-static GtkWidget *entry_flag, *btn_flag, *btn_itemize, *btn_summarize, *btn_cloud;
+static GtkWidget *entry_flag, *btn_flag, *btn_itemize, *btn_summarize, *btn_cloud, *btn_translate;
 
 static GtkWidget *item_view, *item_scroller;
 static GtkTextBuffer *item_buffer;
@@ -33,6 +33,12 @@ static void word_cloud(GtkWidget *p, gpointer data)
 {   
     fetch_mail(USERNAME, PASSWORD, BODY, atoi(gtk_entry_get_text(GTK_ENTRY(entry_num))));
     system("python3 py-analytics/word_cloud.py");
+}
+
+static void translate(GtkWidget *p, gpointer data)
+{
+    fetch_mail(USERNAME, PASSWORD, BODY, atoi(gtk_entry_get_text(GTK_ENTRY(entry_num))));
+    system("python3 py-analytics/translate.py");
 }
 
 static void flag(GtkWidget *p, gpointer data)
@@ -155,7 +161,7 @@ void main_gui()
     gtk_widget_set_size_request(item_scroller, 200, 400);
     gtk_container_add(GTK_CONTAINER(item_scroller), item_view);
 
-    button_view = gtk_button_new_with_label("View Message");
+    btn_view = gtk_button_new_with_label("View Message");
     entry_num = gtk_entry_new();
     entry_flag = gtk_entry_new();
     gtk_entry_set_placeholder_text(GTK_ENTRY(entry_num), "Message number...");
@@ -164,20 +170,22 @@ void main_gui()
     btn_itemize = gtk_button_new_with_label("Action-Itemize");
     btn_summarize = gtk_button_new_with_label("Summarize");
     btn_cloud = gtk_button_new_with_label("Word Cloud");
+    btn_translate = gtk_button_new_with_label("Translate");
 
-    btn_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-    gtk_box_pack_start(GTK_BOX(btn_box), button_view, FALSE, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(btn_box), btn_flag, FALSE, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(btn_box), btn_itemize, FALSE, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(btn_box), btn_summarize, FALSE, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(btn_box), btn_cloud, FALSE, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(btn_box), entry_num, FALSE, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(btn_box), entry_flag, FALSE, FALSE, 1);
+    top_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+    gtk_box_pack_start(GTK_BOX(top_box), btn_view, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(top_box), btn_flag, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(top_box), btn_itemize, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(top_box), btn_summarize, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(top_box), btn_cloud, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(top_box), btn_translate, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(top_box), entry_num, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(top_box), entry_flag, FALSE, FALSE, 1);
 
-    view_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-    gtk_box_pack_start(GTK_BOX(view_box), scroller, TRUE, TRUE, 1);
-    gtk_box_pack_start(GTK_BOX(view_box), msg_scroller, TRUE, TRUE, 1);
-    gtk_box_pack_start(GTK_BOX(view_box), item_scroller, TRUE, TRUE, 1);
+    mid_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+    gtk_box_pack_start(GTK_BOX(mid_box), scroller, TRUE, TRUE, 1);
+    gtk_box_pack_start(GTK_BOX(mid_box), msg_scroller, TRUE, TRUE, 1);
+    gtk_box_pack_start(GTK_BOX(mid_box), item_scroller, TRUE, TRUE, 1);
 
     send_from_entry = gtk_entry_new();
     gtk_entry_set_placeholder_text(GTK_ENTRY(send_from_entry), "From...");
@@ -187,28 +195,29 @@ void main_gui()
     gtk_entry_set_placeholder_text(GTK_ENTRY(send_cc_entry), "Cc...");
     send_content_entry = gtk_entry_new();
     gtk_entry_set_placeholder_text(GTK_ENTRY(send_content_entry), "Content...");
-    button_send = gtk_button_new_with_label("Send Message");
+    btn_send = gtk_button_new_with_label("Send Message");
     send_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, -1);
     gtk_box_pack_start(GTK_BOX(send_box), send_from_entry, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(send_box), send_to_entry, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(send_box), send_cc_entry, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(send_box), send_content_entry, FALSE, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(send_box), button_send, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(send_box), btn_send, FALSE, FALSE, 1);
     send_frame = gtk_frame_new("Send Message");
     gtk_container_add(GTK_CONTAINER(send_frame), send_box);
 
     box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    gtk_box_pack_start(GTK_BOX(box), btn_box, FALSE, FALSE, 1);
-    gtk_box_pack_start(GTK_BOX(box), view_box, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(box), top_box, FALSE, FALSE, 1);
+    gtk_box_pack_start(GTK_BOX(box), mid_box, FALSE, FALSE, 1);
     gtk_box_pack_start(GTK_BOX(box), send_frame, FALSE, FALSE, 1);
 
     gtk_container_add(GTK_CONTAINER(window), box);
-    g_signal_connect(button_view, "clicked", G_CALLBACK(view_message), NULL);
+    g_signal_connect(btn_view, "clicked", G_CALLBACK(view_message), NULL);
     g_signal_connect(btn_flag, "clicked", G_CALLBACK(flag), NULL);
-    g_signal_connect(button_send, "clicked", G_CALLBACK(send_message), NULL);
+    g_signal_connect(btn_send, "clicked", G_CALLBACK(send_message), NULL);
     g_signal_connect(btn_itemize, "clicked", G_CALLBACK(itemize), NULL);
     g_signal_connect(btn_summarize, "clicked", G_CALLBACK(summarize), NULL);
     g_signal_connect(btn_cloud, "clicked", G_CALLBACK(word_cloud), NULL);
+    g_signal_connect(btn_translate, "clicked", G_CALLBACK(translate), NULL);
     g_signal_connect(window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
     gtk_widget_show_all(window);
     gtk_main();
