@@ -10,9 +10,8 @@
  - Get Git from https://git-scm.com/downloads
  - If you already have git:
   1. ``$ git clone https://github.com/sriharinanniyur/pigeon/``
-  2. ``$ cd install``
-  3. ``sudo chmod +x osx-install.sh``
-  4. Finally, ``$ ./osx-install.sh``
+  2. ``sudo chmod +x osx-install.sh``
+  3. Finally, ``$ sudo ./osx-install.sh``
  ### -------------OR----------
 
  - Run the shell command ``brew install gtk3``. This will take a while, so now would be a good time for a coffee break.
