@@ -3,11 +3,11 @@
 # written by Aadit Trivedi
 # requires this "sudo chmod +x osx-install.sh" to be executable through "./osx-install.sh"
 
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew reinstall python3
-brew reinstall gtk3
-brew reinstall sbcl
-pip3 install summarizer nltk wordcloud matplotlib --user
+sudo /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+sudo brew reinstall python3
+sudo brew reinstall gtk3
+sudo brew reinstall sbcl
+sudo pip3 install summarizer nltk wordcloud matplotlib
 
 # Fun animation
 
