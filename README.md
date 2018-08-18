@@ -6,16 +6,14 @@
  - Any C compiler (GCC or Clang preferred).
  - C libraries: gtk+ 3.0, libcURL 7.30.0 or higher. Install with brew on Mac or the default package manager on your Linux system.
  - Python packages: NLTK, summarizer, WordCloud. Install with PIP3.
-
-## OS X instructions:
+### OS X instructions:
  - Get Git from https://git-scm.com/downloads
  - If you already have git:
   1. ``$ git clone https://github.com/sriharinanniyur/pigeon/``
   2. ``$ cd install``
   3. ``sudo chmod +x osx-install.sh``
   4. Finally, ``$ ./osx-install.sh``
-
-# -------------OR----------
+ ### -------------OR----------
 
  - Run the shell command ``brew install gtk3``. This will take a while, so now would be a good time for a coffee break.
  - Run the shell command ``brew install sbcl``. This installs the SBCL Lisp compiler.
