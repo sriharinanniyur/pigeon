@@ -10,6 +10,10 @@
  - Get Git from https://git-scm.com/downloads
  - If you already have git:
   1. ``$ git clone https://github.com/sriharinanniyur/pigeon/``
+     #### or
+     ``svn checkout https://github.com/sriharinanniyur/pigeon/``
+     #### or
+     Download the zipped repository
   2. ``sudo chmod +x osx-install.sh``
   3. Finally, ``$ sudo ./osx-install.sh``
  ### -------------OR----------
