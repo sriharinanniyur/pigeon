@@ -14,8 +14,8 @@
      ``svn checkout https://github.com/sriharinanniyur/pigeon/``
      #### or
      Download the zipped repository
-  2. ``sudo chmod +x osx-install.sh``
-  3. Finally, ``$ sudo ./osx-install.sh``
+  2. ``sudo chmod +x install.sh``
+  3. Finally, ``$ sudo ./install.sh``
  ### -------------OR----------
 
  - Run the shell command ``brew install gtk3``. This will take a while, so now would be a good time for a coffee break.
