@@ -1,4 +1,5 @@
 # pigeon
+### Practice project. Smart email client written in C/C++ and Lisp.
 
 ## Dependencies
  - Any UNIX operating system (Linux preferred, OS X will also work). Windows will not work.
